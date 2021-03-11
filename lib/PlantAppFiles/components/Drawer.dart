@@ -6,20 +6,47 @@ import 'package:flutter_auth/PlantAppFiles/screens/PersonalInfoScreen.dart';
 import '../constants.dart';
 
 class DrawerUi extends StatelessWidget {
+
+  List<DrawerSnackBarConst> _drawerOptions;
+
+  void DrawerOptions() {
+
+
+    _drawerOptions= List<DrawerSnackBarConst>();
+    //TODO: Personal Option
+    _drawerOptions.add(DrawerSnackBarConst(Icons.person,
+        Colors.grey,
+        30,
+        "Personal Information",
+        Colors.white,
+        "Sorry the PersonalInfo not Ready Yet")
+
+    );
+
+    //TODO: Settings Option
+    _drawerOptions.add(DrawerSnackBarConst(Icons.settings,
+        Colors.grey,
+        30,
+        "Settings",
+        Colors.white,
+        "Sorry the Settings not Ready Yet")
+
+    );
+
+
+  }
   FirebaseAuth instance =FirebaseAuth.instance;
   DrawerUi(this.snackBarKey);
   var snackBarKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
+    DrawerOptions();
     return new Drawer(
         child: new Stack(
           children: <Widget> [
 
-            new Container(
-              width: double.infinity,
-              height: double.infinity,
-              color: Colors.black87,
-            ),
+
 
             ProfileImageAndName(context)
           ],
@@ -59,78 +86,103 @@ class DrawerUi extends StatelessWidget {
               ),
             ),
 
-            DrawerOptions(context)
+            DrawerOptionsImport(context)
           ],
         ),
       ],
     );
   }
 
- Widget DrawerOptions(BuildContext context){
+ Widget DrawerOptionsImport(BuildContext context){
 
     return  Transform.translate(
         offset: Offset(0,30),
         child: new Column(
           children: <Widget>[
-            new ListTile(
-              leading: Icon(Icons.person,size: 30, color: Colors.grey,),
-              title: Text("Personal Information", style: TextStyle(fontSize: 17,color: Colors.white),),
-              onTap: (){
-                Navigator.pop(context);
-                snackBarKey.currentState.showSnackBar(
 
-                  SnackBar(
-                      content: new Row(
+            new Container(
+              width: double.infinity,
+              height: 200,
+              child: ListView.builder(physics: NeverScrollableScrollPhysics(),itemBuilder: (context,index){
 
+
+                    return Column(
                     children: <Widget>[
 
-                      new Icon(Icons.timelapse,size: 30,),
-                      new SizedBox(
-                        width: 20,
+                      new ListTile(
+                        leading: Icon(_drawerOptions[index].Icon,
+                        size:_drawerOptions[index].IconSize,
+                        color: _drawerOptions[index].IconColor,
+                        ),
+
+                        title: Text(_drawerOptions[index].Title,
+                        style: TextStyle(fontSize: 17,color: _drawerOptions[index].TitleColor),
+                        ),
+
+                        onTap: (){
+                          Navigator.pop(context);
+                          snackBarKey.currentState.showSnackBar(
+
+                            SnackBar(
+                                backgroundColor: Colors.grey[800],
+                                content: new Row(
+                                  children: <Widget>[
+
+                                    new Icon(Icons.timelapse,size: 30,color: Colors.white,),
+                                    new SizedBox(
+                                      width: 20,
+                                    ),
+                                    new Text(_drawerOptions[index].SubTitle,style: TextStyle(color: Colors.white,fontSize: 16),),
+
+                                  ],
+                                )
+                            ),
+                          );
+
+                        },
                       ),
-                      new Text("Sorry the PersonalInfo not Ready Yet",style: TextStyle(color: Colors.grey,fontSize: 16),),
 
+                      ListTile(
+                        leading: Icon(Icons.logout,size: 30,color: Colors.grey,),
+                        title: Text("SignOut",style: TextStyle(fontSize: 17,color: Colors.white),),
+                        onTap: (){
+                          instance.signOut();
+                        },
+                      )
                     ],
-                  )
-                  ),
-                );
+
+
+                    );
 
               },
-            ),
+              itemCount: 2,
+              ),
+            )
 
-            new ListTile(
-              leading: Icon(Icons.settings,size: 30, color: Colors.grey,),
-              title: Text("Settings", style: TextStyle(fontSize: 17,color: Colors.white),),
-              onTap: (){
-                Navigator.pop(context);
-                snackBarKey.currentState.showSnackBar(
-
-                  SnackBar(content: new Row(
-                    children: <Widget>[
-
-                      new Icon(Icons.timelapse,size: 30,),
-                      new SizedBox(
-                        width: 20,
-                      ),
-                      new Text("Sorry the Settings not Ready Yet",style: TextStyle(color: Colors.grey,fontSize: 16),),
-
-                    ],
-                  )
-                  ),
-                );
-              },
-            ),
-
-            new ListTile(
-              leading: Icon(Icons.logout,size: 30, color: Colors.grey,),
-              title: Text("SignOut", style: TextStyle(fontSize: 17,color: Colors.white),),
-              onTap: (){
-                Navigator.pop(context);
-                instance.signOut();
-              },
-            ),
           ],
         )
     );
   }
+}
+
+
+class DrawerSnackBarConst{
+
+  IconData Icon;
+  Color IconColor,TitleColor;
+  String Title,SubTitle;
+  double IconSize ;
+
+
+
+
+
+  DrawerSnackBarConst(this.Icon,
+      this.IconColor,
+      this.IconSize,
+      this.Title,
+      this.TitleColor,
+      this.SubTitle,
+
+      );
 }

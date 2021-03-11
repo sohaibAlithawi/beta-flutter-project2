@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
      var _snackBarKey = GlobalKey<ScaffoldState>();
     return Scaffold(
       key: _snackBarKey,
-      backgroundColor: Colors.black87,
+
       drawer: DrawerUi(_snackBarKey),
       appBar: AppBar(
         elevation: 0,

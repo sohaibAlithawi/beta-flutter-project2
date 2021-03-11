@@ -5,11 +5,13 @@ import 'image_and_icons.dart';
 import 'title_and_price.dart';
 
 class BodyD extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Material(
-      color: Colors.black87 ,
+
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -28,7 +30,10 @@ class BodyD extends StatelessWidget {
                       ),
                     ),
                     color: kPrimaryColor,
-                    onPressed: () {},
+                    onPressed: () {
+
+
+                    },
                     child: Text(
                       "Buy Now",
                       style: TextStyle(
@@ -52,3 +57,5 @@ class BodyD extends StatelessWidget {
     );
   }
 }
+
+

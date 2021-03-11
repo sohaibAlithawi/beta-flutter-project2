@@ -31,8 +31,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      body: MyBottomNavBar(),
+    return MaterialApp(
+      theme: ThemeData.dark(),
+      home: new Scaffold(
+        body: MyBottomNavBar(),
+      ),
     );
   }
 }

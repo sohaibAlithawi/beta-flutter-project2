@@ -67,6 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: EdgeInsets.all(15),
                     child: TextFormField(
                       decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.person_outline,size: 25,),
                         border: OutlineInputBorder(),
                         labelText: "Enter your email",
                         hintText: "yourname@gmail.com",
@@ -84,6 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: EdgeInsets.all(15),
                     child: TextFormField(
                       decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.lock_outline,size: 25,),
                         border: OutlineInputBorder(),
                         labelText: "Enter your Password",
                         hintText: "123Password",
@@ -121,7 +123,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
                       onPressed: () async {
-
 
                       SignIn();
                       },

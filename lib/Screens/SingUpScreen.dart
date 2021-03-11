@@ -3,6 +3,10 @@ import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_auth/PlantAppFiles/components/my_bottom_nav_bar.dart';
+import 'package:flutter_auth/PlantAppFiles/constants.dart';
+import 'package:flutter_auth/PlantAppFiles/screens/home/home_screen.dart';
+import 'package:flutter_auth/Screens/homePageScreen.dart';
 import 'LoginScreen.dart';
 
 class SingUpScreen extends StatefulWidget {
@@ -19,7 +23,6 @@ class _SingUpScreenState extends State<SingUpScreen> {
   Widget build(BuildContext context) {
     return new Scaffold(
         key: signUp,
-        backgroundColor: Colors.white,
         body: new Stack(
           children: <Widget>[
 
@@ -34,7 +37,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
                   color: Colors.blue[500],
                   image: DecorationImage(
                       alignment: Alignment.bottomCenter,
-                      image: ExactAssetImage('images/logo.png'))),
+                      image: ExactAssetImage('assets/images/logo.png'))),
               child: Transform.translate(
                 child: new Text(
                   "Register new Account!",
@@ -66,6 +69,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
                   padding: EdgeInsets.all(15),
                   child: TextFormField(
                     decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.person_outline,size: 25,),
                         border: OutlineInputBorder(),
                         labelText: "Enter your name",
                         hintText: "name"),
@@ -81,6 +85,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
                   padding: EdgeInsets.all(15),
                   child: TextFormField(
                     decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.email_outlined,size: 25,),
                         border: OutlineInputBorder(),
                         labelText: "Enter your Email",
                         hintText: "FlutterApp@gmail.com"),
@@ -96,6 +101,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
                   padding: EdgeInsets.all(15),
                   child: TextFormField(
                     decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.lock_outline,size: 25,),
                       border: OutlineInputBorder(),
                       labelText: "Enter your Password",
                       hintText: "123Password",
@@ -171,10 +177,29 @@ class _SingUpScreenState extends State<SingUpScreen> {
 
  dynamic Registration ()async{
 
+
+
     try{
+      if (email.isNotEmpty && password.isNotEmpty){
+        print("Email and password not Empty");
+      }else{
+
+        signUp.currentState.showSnackBar(
+          SnackBar(
+            content: new Text(
+              "Please full the container of email and password ",
+              style: TextStyle(fontSize: 16),
+            ),
+          ),
+        );
+      }
+
+
        userCredential =
       await instance.createUserWithEmailAndPassword(email: this.email.trim(), password: this.password.trim());
 
+
+      Navigator.push(context, MaterialPageRoute(builder: (context) => HomePageScreen()));
     } on FirebaseAuthException catch(error){
 
 
